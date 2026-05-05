@@ -49,6 +49,9 @@ def get_data(filters):
     # =========================
     pi_filters = {"company": filters.get("company")}
 
+    if filters.get("workflow_state"):
+        pi_filters["workflow_state"] = filters.get("workflow_state")
+
     if filters.get("from_date") and filters.get("to_date"):
         if filters.get("from_date") > filters.get("to_date"):
             frappe.throw(_("From Date cannot be greater than To Date"))

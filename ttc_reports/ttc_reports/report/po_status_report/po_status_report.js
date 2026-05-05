@@ -6,19 +6,20 @@ frappe.query_reports["PO Status Report"] = {
             label: "Company",
             fieldtype: "Link",
             reqd: 1,
-            options: "Company"        
+            options: "Company",
+            default: frappe.defaults.get_user_default("Company"),
         },
         {
             fieldname: "from_date",
             label: "From Date",
             fieldtype: "Date",
-            default:""
+            default: frappe.datetime.add_months(frappe.datetime.get_today(), -1)
         },
         {
             fieldname: "to_date",
             label: "To Date",
             fieldtype: "Date",
-            default:"" 
+            default: frappe.datetime.get_today()
         }
     ],
 

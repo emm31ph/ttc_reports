@@ -93,13 +93,15 @@ def get_data(filters):
             items_map[po_number] = {"items": [], "total_qty": 0, "warehouses": set()}
         items_map[po_number]["items"].append(item.item_name)
         items_map[po_number]["total_qty"] += item.qty
-        items_map[po_number]["warehouses"].add(item.warehouse)
+        
+        items_map[po_number]["warehouses"].add(item.warehouse or "")
 
     # Merge items into PO data
     data = []
     for po in purchase_orders:
         creator = frappe.db.get_value("User", po.owner, "full_name") or po.owner
         item_info = items_map.get(po.po_number, {"items": [], "total_qty": 0, "warehouses": set()})
+
         data.append({
             "po_number": po.po_number,
             "supplier": po.supplier,
