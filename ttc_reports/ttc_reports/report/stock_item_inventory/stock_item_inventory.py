@@ -4,54 +4,87 @@ import frappe
 from frappe import _
 
 def execute(filters=None):
+    # Entry point for the report
+    # Returns column definitions and data based on filters
     columns = get_columns()
-    data = get_data(filters)
+    data = get_data(filters or {})
     return columns, data
 
 def get_columns():
+    # Define the report columns
     return [
         {"label": _("Item Code"), "fieldname": "item_code", "fieldtype": "Data", "width": 120},
-        {"label": _("Description"), "fieldname": "item_name", "fieldtype": "Data", "width": 400},
+        {"label": _("Item Name"), "fieldname": "item_name", "fieldtype": "Data", "width": 350},
         {"label": _("UOM"), "fieldname": "stock_uom", "fieldtype": "Data", "width": 80},
-        {"label": _("Warehouse"), "fieldname": "warehouse", "fieldtype": "Link", "options": "Warehouse", "width": 200},
-        {"label": _("Balance Count"), "fieldname": "balance_count", "fieldtype": "Float", "width": 140},
-        {"label": _("Valuation Rate"), "fieldname": "valuation_rate", "fieldtype": "Currency", "width": 120},
-        {"label": _("Value"), "fieldname": "value", "fieldtype": "Currency", "width": 120},
+        {"label": _("Item Group"), "fieldname": "item_group", "fieldtype": "Data", "width": 200},
+        {"label": _("Warehouse"), "fieldname": "warehouse", "fieldtype": "Link", "options": "Warehouse", "width": 240},
+        {"label": _("Stocks"), "fieldname": "balance_count", "fieldtype": "Float", "width": 120},
+        {"label": _("To Receive"), "fieldname": "ordered_qty", "fieldtype": "Float", "width": 120},
     ]
 
 def get_data(filters):
     data = []
 
-    # Step 1: Get warehouses for the selected company
+    # Step 1: Get warehouses belonging to the selected company
+    # If company filter is provided, restrict warehouses to that company
     wh_filters = {}
-    if filters and filters.get("company"):
+    if filters.get("company"):
         wh_filters["company"] = filters.get("company")
 
     warehouses = frappe.get_all("Warehouse", fields=["name"], filters=wh_filters)
     wh_names = [w.name for w in warehouses]
 
-    # Step 2: Get Bin records for those warehouses
-    bin_filters = {"warehouse": ["in", wh_names]} if wh_names else {}
+    # Step 2: Build Bin filters (Bin = stock balance per item per warehouse)
+    bin_filters = {}
+    if wh_names:
+        bin_filters["warehouse"] = ["in", wh_names]
+
+    # Override with specific warehouse if provided
+    if filters.get("warehouse"):
+        bin_filters["warehouse"] = filters.get("warehouse")
+
+    # Apply Item Code filter if provided
+    if filters.get("item_code"):
+        bin_filters["item_code"] = filters.get("item_code")
+
+    # Step 3: Get Bin records (actual stock + ordered qty)
     bins = frappe.get_all(
         "Bin",
-        fields=["item_code", "actual_qty", "valuation_rate", "warehouse"],
+        fields=["item_code", "actual_qty", "ordered_qty", "warehouse"],
         filters=bin_filters
     )
 
-    # Step 3: Map Bin records to Item details, filter stock items only
+    # Step 4: Map Bin records to Item details
+    # Only include stock items (is_stock_item = 1)
     for b in bins:
-        item = frappe.db.get_value("Item", b.item_code, ["item_name", "stock_uom", "is_stock_item"])
+        item = frappe.db.get_value(
+            "Item",
+            b.item_code,
+            ["item_name", "stock_uom", "is_stock_item", "item_group"]
+        )
         if item and item[2]:  # Only include if is_stock_item = 1
+            # Apply Item Group filter if provided
+            if filters.get("item_group"):
+                if item[3] != filters.get("item_group"):
+                    continue
+            else:
+                # If item_group filter is empty, enforce company filter
+                if filters.get("company"):
+                    wh_company = frappe.db.get_value("Warehouse", b.warehouse, "company")
+                    if wh_company != filters.get("company"):
+                        continue
+
+            # Append record to data
             data.append({
                 "item_code": b.item_code,
                 "item_name": item[0],
                 "stock_uom": item[1],
-                "warehouse": b.warehouse,
+                "item_group": item[3] or "",
+                "warehouse": b.warehouse or "",
                 "balance_count": b.actual_qty,
-                "valuation_rate": b.valuation_rate,
-                "value": (b.actual_qty or 0) * (b.valuation_rate or 0)
+                "ordered_qty": b.ordered_qty
             })
 
-    # Step 4: Sort ascending by Description
+    # Step 5: Sort ascending by Item Name for readability
     data = sorted(data, key=lambda x: x["item_name"] or "")
     return data

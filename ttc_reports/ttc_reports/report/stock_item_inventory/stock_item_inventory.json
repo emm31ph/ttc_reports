@@ -10,7 +10,7 @@
  "idx": 0,
  "is_standard": "Yes",
  "letter_head": null,
- "modified": "2026-04-21 13:05:15.898115",
+ "modified": "2026-05-05 11:03:02.034271",
  "modified_by": "Administrator",
  "module": "TTC Reports",
  "name": "Stock Item Inventory",
@@ -21,229 +21,16 @@
  "report_type": "Script Report",
  "roles": [
   {
-   "role": "Asset - Approver"
+   "role": "System Manager"
   },
   {
-   "role": "Asset - Encoder"
-  },
-  {
-   "role": "Asset Capitalization - Approver"
-  },
-  {
-   "role": "Asset Capitalization - Encoder"
-  },
-  {
-   "role": "Asset Repair - Approver"
-  },
-  {
-   "role": "Asset Repair - Encoder"
-  },
-  {
-   "role": "Batch - Encoder"
-  },
-  {
-   "role": "Blanket Order - Approver"
-  },
-  {
-   "role": "Blanket Order - Encoder"
-  },
-  {
-   "role": "BOM - Approver"
-  },
-  {
-   "role": "BOM - Encoder"
-  },
-  {
-   "role": "BOM Creator - Approver"
-  },
-  {
-   "role": "BOM Creator - Encoder"
-  },
-  {
-   "role": "Closing Stock Balance - Approver"
-  },
-  {
-   "role": "Closing Stock Balance - Encoder"
-  },
-  {
-   "role": "Delivery Note - Approver"
-  },
-  {
-   "role": "Delivery Note - Encoder"
-  },
-  {
-   "role": "Item - Encoder"
-  },
-  {
-   "role": "Item Alternative - Encoder"
-  },
-  {
-   "role": "Item Manufacturer - Encoder"
-  },
-  {
-   "role": "Item Price - Encoder"
-  },
-  {
-   "role": "Job Card - Approver"
-  },
-  {
-   "role": "Job Card - Encoder"
-  },
-  {
-   "role": "Landed Cost Voucher - Approver"
-  },
-  {
-   "role": "Landed Cost Voucher - Encoder"
-  },
-  {
-   "role": "Maintenance Schedule - Approver"
-  },
-  {
-   "role": "Maintenance Schedule - Encoder"
-  },
-  {
-   "role": "Maintenance Visit - Approver"
-  },
-  {
-   "role": "Maintenance Visit - Encoder"
-  },
-  {
-   "role": "Management"
+   "role": "Stock Entry - Encoder"
   },
   {
    "role": "Material Request - Approver"
   },
   {
    "role": "Material Request - Encoder"
-  },
-  {
-   "role": "Opportunity - Encoder"
-  },
-  {
-   "role": "Packing Slip - Approver"
-  },
-  {
-   "role": "Packing Slip - Encoder"
-  },
-  {
-   "role": "Pick List - Approver"
-  },
-  {
-   "role": "Pick List - Encoder"
-  },
-  {
-   "role": "Product Bundle - Encoder"
-  },
-  {
-   "role": "Production Plan - Approver"
-  },
-  {
-   "role": "Production Plan - Encoder"
-  },
-  {
-   "role": "Purchase Invoice - Approver"
-  },
-  {
-   "role": "Purchase Invoice - Encoder"
-  },
-  {
-   "role": "Purchase Order - Approver"
-  },
-  {
-   "role": "Purchase Order - Encoder"
-  },
-  {
-   "role": "Purchase Receipt - Approver"
-  },
-  {
-   "role": "Purchase Receipt - Encoder"
-  },
-  {
-   "role": "Quick Stock Balance - Encoder"
-  },
-  {
-   "role": "Quotation - Approver"
-  },
-  {
-   "role": "Quotation - Encoder"
-  },
-  {
-   "role": "Request for Quotation - Approver"
-  },
-  {
-   "role": "Request for Quotation - Encoder"
-  },
-  {
-   "role": "Sales Invoice - Approver"
-  },
-  {
-   "role": "Sales Invoice - Encoder"
-  },
-  {
-   "role": "Sales Order - Approver"
-  },
-  {
-   "role": "Sales Order - Encoder"
-  },
-  {
-   "role": "Serial and Batch Bundle - Approver"
-  },
-  {
-   "role": "Serial and Batch Bundle - Encoder"
-  },
-  {
-   "role": "Serial No - Encoder"
-  },
-  {
-   "role": "Stock Entry - Approver"
-  },
-  {
-   "role": "Stock Entry - Encoder"
-  },
-  {
-   "role": "Stock Reconciliation - Approver"
-  },
-  {
-   "role": "Stock Reconciliation - Encoder"
-  },
-  {
-   "role": "Subcontracting BOM - Encoder"
-  },
-  {
-   "role": "Subcontracting Order - Approver"
-  },
-  {
-   "role": "Subcontracting Order - Encoder"
-  },
-  {
-   "role": "Supplier Quotation - Approver"
-  },
-  {
-   "role": "Supplier Quotation - Encoder"
-  },
-  {
-   "role": "Warranty Claim - Encoder"
-  },
-  {
-   "role": "Work Order - Approver"
-  },
-  {
-   "role": "Work Order - Encoder"
-  },
-  {
-   "role": "System Manager"
-  },
-  {
-   "role": "Material Request - Viewer"
-  },
-  {
-   "role": "Purchase Receipt - Checker"
-  },
-  {
-   "role": "Sales Invoice Owner - Encoder"
-  },
-  {
-   "role": "Sales Order Owner - Encoder"
   }
  ],
  "timeout": 0
