@@ -1,0 +1,34 @@
+{
+ "add_total_row": 0,
+ "add_translate_data": 0,
+ "columns": [],
+ "creation": "2026-05-11 13:07:20.853427",
+ "disabled": 0,
+ "docstatus": 0,
+ "doctype": "Report",
+ "filters": [],
+ "idx": 0,
+ "is_standard": "Yes",
+ "letter_head": null,
+ "modified": "2026-05-11 13:07:20.853427",
+ "modified_by": "Administrator",
+ "module": "TTC Reports",
+ "name": "PO Items Report",
+ "owner": "Administrator",
+ "prepared_report": 0,
+ "ref_doctype": "Purchase Order",
+ "report_name": "PO Items Report",
+ "report_type": "Script Report",
+ "roles": [
+  {
+   "role": "Purchase Order - Approver"
+  },
+  {
+   "role": "Purchase Order - Encoder"
+  },
+  {
+   "role": "System Manager"
+  }
+ ],
+ "timeout": 0
+}
